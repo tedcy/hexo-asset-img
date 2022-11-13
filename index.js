@@ -11,12 +11,16 @@ function ignore(data) {
     return ['md',].indexOf(ext) > -1;
 }
 
+function escapeRegex(string) {
+    return string.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+}
+
 function action(data) {
     var reverseSource = data.source.split("").reverse().join("");
     var fileName = reverseSource.substring(3, reverseSource.indexOf("/")).split("").reverse().join("");
 
     // ![example](postname/example.jpg)  -->  {% asset_img example.jpg example %}
-    var regExp = RegExp("!\\[(.*?)\\]\\(" + fileName + '/(.+?)\\)', "g");
+    var regExp = RegExp("!\\[(.*?)\\]\\(" + escapeRegex(fileName) + '/(.+?)\\)', "g");
     // hexo g
     data.content = data.content.replace(regExp, "{% asset_img $2 $1 %}","g");
 
