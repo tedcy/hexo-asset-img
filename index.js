@@ -24,7 +24,7 @@ function action(data) {
     // hexo g
     data.content = data.content.replace(regExp, "{% asset_img $2 $1 %}","g");
     // <img src="2024-12-7-xxx/xxx.jpg"/>  -->  <img src="xxx/xxx.jpg"/>
-    const regExp1 = new RegExp('^<img src="\\d{4}-\\d{1,2}-\\d{1,2}-', 'gm');
+    const regExp1 = RegExp('<img src="\\d{4}-\\d{1,2}-\\d{1,2}-', 'g');
     data.content = data.content.replace(regExp1, '<img src="');
 
     // log.info(`hexo-asset-img: filename: ${fileName}, title: ${data.title.trim()}`);
